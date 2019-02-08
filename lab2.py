@@ -19,7 +19,7 @@ def main(argv):
                 print num
             else:
                 command = line
-                traverse(command)
+                BST.traverse(command)
                 print command
             #print(line.split()) 
             if 'str' in line:
