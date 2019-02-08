@@ -27,13 +27,14 @@ class BST(object):
     
     def delete(self, data):
         # Find the node to delete.
-        # If the value specified by delete does not exist in the tree, then don't change the tree.
+        # If the value does not exist in the tree, then don't change the tree.
         # If you find the node and ...
         #  a) The node has no children, just set it's parent's pointer to Null.
         #  b) The node has one child, make the nodes parent point to its child.
         #  c) The node has two children, replace it with its successor, and remove 
         #       successor from its previous location.
-        # Recall: The successor of a node is the left-most node in the node's right subtree.
+        # Recall: The successor of a node is the left-most node 
+        # in the node's right subtree.
         # Hint: you may want to write a new method, findSuccessor() 
 	#to find the successor when there are two children
 
@@ -43,7 +44,8 @@ class BST(object):
         pass
 
     def traverse(self, order, top):
-        # traverse the tree by printing out the node data for all node in a specified order
+        # traverse the tree by printing out the node data for all node 
+        #in a specified order
 
         if top is not None:
             if order == "preorder":
