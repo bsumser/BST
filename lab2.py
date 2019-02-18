@@ -17,6 +17,8 @@ def main(argv):
         for line in file_ob:
             if ' ' in line:
                 command, num = line.split()
+                if command == 'insert':
+                    myBST.insert(num)
                 print command
                 print num
             else:
