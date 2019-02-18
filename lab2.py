@@ -4,6 +4,8 @@ from sys import argv
 from BST import BST
 
 def main(argv):
+    myBST = BST();
+
     # Loop over input file (filename passed via argv).
     input_file = argv[1]
     with open(input_file, 'r') as file_ob:
@@ -19,7 +21,7 @@ def main(argv):
                 print num
             else:
                 command = line
-                BST.traverse(command)
+                #myBST.traverse(command, BST.root)
                 print command
             #print(line.split()) 
             if 'str' in line:

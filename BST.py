@@ -23,7 +23,25 @@ class BST(object):
         # Find the right spot in the tree for the new node
         # Make sure to check if anything is in the tree
         # Hint: if a node n is null, calling n.getData() will cause an error
-        pass
+        y = None
+        x = self.__root
+        z = Node(data)
+
+        while x != None:
+            y = x
+            if z.getData() < x.getData():
+                x = x.getLeftChild()
+            else:
+                x = x.getRightChild()
+        z.setParent(y)
+        if y == None:
+            self.__root = z # case for tree being empty
+        elif z.getData() < y.getData():
+            y.setLeftChild(z)
+        else:
+            y.setRightChild(z)
+
+        #pass
     
     def delete(self, data):
         # Find the node to delete.
