@@ -17,19 +17,18 @@ def main(argv):
         for line in file_ob:
             if ' ' in line:
                 command, num = line.split()
-                if command == 'insert':
+                if command == "insert":
                     myBST.insert(num)
-                print command
-                print num
+                if command == "delete":
+                    myBST.deleteBook(num)
+                #print command
+                #print num
             else:
-                command = line
-                #myBST.traverse(command, BST.root)
-                print command
-            #print(line.split()) 
+                myBST.traverse(line, myBST.getRoot())
+                #print command
             if 'str' in line:
                 break
     pass
 
 if __name__ == "__main__":
     main(argv)
-

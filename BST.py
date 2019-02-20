@@ -12,7 +12,14 @@ class BST(object):
         # Private Method, can only be used inside of BST.
         # Search tree for a node whose data field is equal to data.
         # Return the Node object
-        pass
+        x = self.__root
+
+        while x is not None and data != x.getData():
+            if data < x.getData():
+                x = x.getLeftChild()
+            else:
+                x = x.getRightChild()
+        return x
 
     def contains(self, data):
         # return True of node containing data is present in the tree.
@@ -43,7 +50,38 @@ class BST(object):
 
         #pass
     
-    def delete(self, data):
+    def delete(self,top,data):
+        #base case
+        if top is None:
+            return top
+        #if key to be deleted is smaller than root's key then left subtree
+        if data < top.getData():
+            top.setLeftChild(delete(top.getLeftChild, data))
+
+        #if key is greater than root is in right subtree
+        elif data > top.getData():
+            top.setRightChild(delete(top.getRightChild(), data))
+
+        #if key is root's data, then root needs to be deleted
+        else:
+            #node with one or no child
+            if top.getLeftChild() is None:
+                temp = top.getRightChild()
+                top = None
+                return temp
+
+            elif top.getRightChild is None:
+                temp = root.getLeftChild()
+                top = None
+                return temp
+
+            #node with two children, get successor
+            temp = self.treeMin(top.getRightChild())
+
+            #copy successor to this node
+            top.setData(temp.getData())
+        return top
+    def deleteBook(self, data):
         # Find the node to delete.
         # If the value does not exist in the tree, then don't change the tree.
         # If you find the node and ...
@@ -56,10 +94,47 @@ class BST(object):
         # Hint: you may want to write a new method, findSuccessor() 
 	#to find the successor when there are two children
 
+        z = self.__findNode(data)
+
+        if z.getLeftChild() is None: #case for z having no left child
+            transplant(z,z.getRightChild)
+        elif z.getRightChild() is None: #case for z having left child but no right child
+            transplant(z,z.getLeftChild())
+        else:
+            y = self.treeMin(z.getRightChild())
+            if y.getParent() is not z:
+                self.transplant(y,y.getRightChild())
+                y.setRightChild(z.getRightChild())
+                y.getRightChild().setParent(y)
+            self.transplant(z,y)
+            y.setLeftChild(z.getLeftChild())
+            y.getLeftChild().setParent(y)
+
         return None
 
-    def __findSuccessor(self, aNode):
-        pass
+    def treeMin(self, x):
+        while x.getLeftChild() is not None:
+            x = x.getLeftChild()
+        return x
+
+    def transplant(self, u, v):
+        if u.getParent() is None: #case where u is the root of the tree
+            self.__root = v
+        elif u is u.getParent().getLeftChild(): # case where u is the left child of its parent
+            u.getParent().setLeftChild(v)
+        else:
+            u.getParent().setRightChild(v) # case where u is the right child of its parent
+        if v is not None:
+            v.setParent(u.getParent())
+
+    def __findSuccessor(self, x):
+        if x.getRightChild() is not None:
+            return treeMin(x.getRightChild())
+        y = x.getParent()
+        while y != None and x == y.getRightChild():
+            x = y
+            y = y.getParent()
+        return y
 
     def traverse(self, order, top):
         # traverse the tree by printing out the node data for all node 
@@ -67,19 +142,22 @@ class BST(object):
 
         if top is not None:
             if order == "preorder":
-                # your code here, remove pass
-                pass
-                
+                if top != None:
+                    print top.getData(),
+                    self.traverse(order, top.getLeftChild())
+                    self.traverse(order, top.getRightChild())
             
             elif order == "inorder":
-                # your code here, remove pass
-                pass
-
+                if top != None:
+                    self.traverse(order, top.getLeftChild())
+                    print top.getData(),
+                    self.traverse(order, top.getRightChild())
 
             elif order == "postorder":
-                # your code here, remove pass
-                pass
+                if top != None:
+                    self.traverse(order, top.getLeftChild())
+                    self.traverse(order, top.getRightChild())
+                    print top.getData(),
             
             else:
                 print("Error, order {} undefined".format(order))
-
