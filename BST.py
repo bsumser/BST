@@ -21,10 +21,16 @@ class BST(object):
                 x = x.getRightChild()
         return x
 
-    def contains(self, data):
+    def contains(self, top, data):
         # return True of node containing data is present in the tree.
         # otherwise, return False.
-        pass
+        if top is None:
+            return false
+        if top.getData() == data:
+            return true
+        if top.getData() > data:
+            return self.contains(top.getLeftChild(), data)
+        return self.contains(top.getRightChild, data)
 
     def insert(self, data):
         # Find the right spot in the tree for the new node
