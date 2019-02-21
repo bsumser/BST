@@ -24,8 +24,9 @@ def main(argv):
                 #print command
                 #print num
             else:
-                myBST.traverse(line, myBST.getRoot())
-                #print command
+                line = line.split()
+                myBST.traverse(line[0], myBST.getRoot())
+                print ''
             if 'str' in line:
                 break
     pass
